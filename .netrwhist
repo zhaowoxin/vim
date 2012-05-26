@@ -1,2 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/yang/Desktop/product/lib/DynamicLinking'
+let g:netrw_dirhist_2='/home/yang/.vim'
+let g:netrw_dirhist_3='/proc/fs/ext4/sda1'
+let g:netrw_dirhist_4='/home/yang/.vim'
+let g:netrw_dirhist_5='/home/yang/.vim/colors'
+let g:netrw_dirhist_6='/home/yang/.pulse'

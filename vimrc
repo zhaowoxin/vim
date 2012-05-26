@@ -1,3 +1,4 @@
+
 """"""""""""""""""""""""""""""""""""""""
 "
 "             for macbook
@@ -91,8 +92,9 @@ map ,w :call Browser ()<CR>
 " only works when the line has no garbage
 function! OpenFile ()
   let line = getline (".")
-"  let line = matchstr (line, "\%(http://\|www\.\)[^ ,;\t]*")
-  exec "e ".line
+  "let line = matchstr (line, "\b.*\b")
+  let line = split(line, ' \zs');
+  exec "tabnew ".line
 endfunction
 map ,r :call OpenFile ()<CR>
 
@@ -108,8 +110,16 @@ set hidden
 " I just use <Tab> to do buffernext, but need to make sure I am in Normal Mode
 " Taglist.vim use <Tab> in nomal mode for jumping among different filename in 
 " its own window, but I do not feel uncomfortable about this 
-map <Tab> :bn<CR>
-map ,bd :bd<cr>
+noremap ,bn :bn<CR>
+noremap ,bd :bd<cr>
+autocmd! bufwritepost vimrc source ~/.vim/vimrc
+set backspace=indent,eol,start
+"F1: Toggle hlsearch (highlight search matches).
+nmap <F12> :set hls!<CR>
+
+map <C-h> :tabp<cr>
+map <C-l> :tabn<cr>
+
 """"""""""""""""""""""""""""""""""""""""
 "
 "             formatting 
@@ -168,22 +178,21 @@ map ,n :NERDTreeToggle<CR>
 """"""""""""""""""""""""""""""""""""""""
 " before I use <S-ZZ> to quit, this has the danger of unexpectedly
 " save some garbage editing, so I have a safer way now as below
-map ,, :q<CR>
-" force quit
-map ,f :q!<CR>
+map ,, :q!<CR>
+map ww :w<CR>
+" jump to the previous position before exiting
+map pr '"
 
-""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""
 "
 "             vimrc editing 
 "
 """"""""""""""""""""""""""""""""""""""""
 " I need a fake ~/.vimrc: runtime vimrc
 " http://www.derekwyatt.org/vim/the-vimrc-file/my-vimrc-file/
-map ,e :e ~/.vim/vimrc<CR>
+map ,e :tabnew ~/.vim/vimrc<CR>
 " When vimrc is edited, reload it
 " copied from http://amix.dk/vim/vimrc.html
-autocmd! bufwritepost vimrc source ~/.vim/vimrc
-
 
 """"""""""""""""""""""""""""""""""""""""
 "
@@ -209,8 +218,8 @@ set wildmenu
 "
 """"""""""""""""""""""""""""""""""""""""
 set expandtab
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 
 """"""""""""""""""""""""""""""""""""""""
 "
@@ -227,7 +236,7 @@ set dictionary-=/usr/share/dict/words dictionary+=/usr/share/dict/words
 """"""""""""""""""""""""""""""""""""""""
 " ic also has effect on dictionary settings
 set ic 
-"set hlsearch
+set hlsearch
 set incsearch
 
 """"""""""""""""""""""""""""""""""""""""
@@ -254,7 +263,7 @@ set cpoptions+=$
 " autocmd FileType text setlocal textwidth=78
 set textwidth=78
 
-" input abrevation 
+" input abbrevation 
 iab frm from 
 " set number for doing diffs and folding
 " set nu
@@ -280,3 +289,46 @@ nmap <silent> ,md :!mkdir -p %:p:h<CR>
 "             test stuff
 "
 """"""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""
+"
+"             ,
+"
+""""""""""""""""""""""""""""""""""""""""
+nnoremap <c-e> ,
+vnoremap <c-e> ,
+"""""""""""""""""""""""""""""""""""""""
+"
+"
+"           insert mode array
+"
+"""""""""""""""""""""""""""""""""""""""
+inoremap <M-h> <Left>
+inoremap <M-j> <Down>
+inoremap <M-k> <Up>
+inoremap <M-l> <Right>
+"""""""""""""""""""""""""""""""""""""""
+"
+"             gcc
+"
+"""""""""""""""""""""""""""""""""""""""
+set makeprg=gcc\ %:p\ -o\ %:p:r\ -g
+""""""""""""""""""""""""""""""""""""""
+"
+"            cscope && ctags
+"
+"""""""""""""""""""""""""""""""""""""
+":nmap ,t :!(cd %:p:h;ctags *)&
+
+map <C-k> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <C-i> :tab split<CR>:exec("cs find c ".expand("<cword>"))<CR>
+map <C-j> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+map <C-u> :vsp <CR>:exec("cs find c ".expand("<cword>"))<CR>
+
+:set tags=tags;
+""""""""""""""""""""""""""""""""""""
+"
+"       colorscheme 
+"       
+""""""""""""""""""""""""""""""""""""
+colorscheme elise
+"set t_Co=256
