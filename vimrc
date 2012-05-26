@@ -1,4 +1,3 @@
-
 """"""""""""""""""""""""""""""""""""""""
 "
 "             for macbook
@@ -9,7 +8,8 @@ syntax on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Abbrevs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
+ia xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 "      Cope
@@ -52,7 +52,7 @@ map ,ss :setlocal spell!<cr>
 """"""""""""""""""""""""""""""""""""""""
 " Enable filetype plugin
 filetype plugin on
-" filetype indent on
+filetype indent on
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -82,7 +82,6 @@ function! Browser ()
 endfunction
 map ,w :call Browser ()<CR>
 
-
 """"""""""""""""""""""""""""""""""""""""
 "
 "             open file
@@ -97,7 +96,6 @@ function! OpenFile ()
   exec "tabnew ".line
 endfunction
 map ,r :call OpenFile ()<CR>
-
 
 """"""""""""""""""""""""""""""""""""""""
 "
@@ -117,9 +115,14 @@ set backspace=indent,eol,start
 "F1: Toggle hlsearch (highlight search matches).
 nmap <F12> :set hls!<CR>
 
+"""""""""""""""""""""""""""""""""""""
+"
+"        tablist 
+"
+"""""""""""""""""""""""""""""""""""""
+
 map <C-h> :tabp<cr>
 map <C-l> :tabn<cr>
-
 """"""""""""""""""""""""""""""""""""""""
 "
 "             formatting 
@@ -127,6 +130,7 @@ map <C-l> :tabn<cr>
 """"""""""""""""""""""""""""""""""""""""
 " this is for C comments, see *fo-table* to know what althese options mean
 set fo=croq
+
 """"""""""""""""""""""""""""""""""""""""
 "
 "             general
@@ -206,7 +210,7 @@ imap jj <esc>
 
 """"""""""""""""""""""""""""""""""""""""
 "
-"             wildmode
+"    wildmode/cmdline-completion
 "
 """"""""""""""""""""""""""""""""""""""""
 " use <C-D> with this to get a list
@@ -229,6 +233,7 @@ set tabstop=2
 " i_CTRL_X_K 
 set dictionary+=~/.vim/dict/simple
 set dictionary-=/usr/share/dict/words dictionary+=/usr/share/dict/words
+
 """"""""""""""""""""""""""""""""""""""""
 "
 "             Search
@@ -284,11 +289,7 @@ set fillchars=""
 " cd to the directory containing the file in the buffer
 nmap <silent> ,cd :lcd %:h<CR>
 nmap <silent> ,md :!mkdir -p %:p:h<CR>
-""""""""""""""""""""""""""""""""""""""""
-"
-"             test stuff
-"
-""""""""""""""""""""""""""""""""""""""""
+
 """"""""""""""""""""""""""""""""""""""""
 "
 "             ,
@@ -332,3 +333,5 @@ map <C-u> :vsp <CR>:exec("cs find c ".expand("<cword>"))<CR>
 """"""""""""""""""""""""""""""""""""
 colorscheme elise
 "set t_Co=256
+nnoremap <c-e> ,
+vnoremap <c-e> ,
