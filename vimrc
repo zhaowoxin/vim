@@ -77,14 +77,14 @@ autocmd BufWritePost ~/.vim/doc/* :helptags ~/.vim/doc
 " refer to http://vim.wikia.com/wiki/VimTip306 
 function! Browser ()
   let line = getline (".")
-"  let line = matchstr (line, "\%(http://\|www\.\)[^ ,;\t]*")
+  "  let line = matchstr (line, "\%(http://\|www\.\)[^ ,;\t]*")
   exec "!firefox ".line
 endfunction
 map ,w :call Browser ()<CR>
 
 """"""""""""""""""""""""""""""""""""""""
 "
-"             open file
+"             open file(gf)
 "
 """"""""""""""""""""""""""""""""""""""""
 " xxx keyword|vim -s search.vim -
@@ -183,7 +183,7 @@ map ,n :NERDTreeToggle<CR>
 " before I use <S-ZZ> to quit, this has the danger of unexpectedly
 " save some garbage editing, so I have a safer way now as below
 map ,, :q!<CR>
-map ww :w<CR>
+map <tab> :w!<CR>
 " jump to the previous position before exiting
 map pr '"
 
@@ -261,8 +261,7 @@ set laststatus=2
 "             misc
 "
 """"""""""""""""""""""""""""""""""""""""
-" have nice $ sign when you use `cw`
-set cpoptions+=$
+
 
 " Do not know how to use autocmd yet, so the following line not working
 " autocmd FileType text setlocal textwidth=78
@@ -295,18 +294,8 @@ nmap <silent> ,md :!mkdir -p %:p:h<CR>
 "             ,
 "
 """"""""""""""""""""""""""""""""""""""""
-nnoremap <c-e> ,
-vnoremap <c-e> ,
-"""""""""""""""""""""""""""""""""""""""
-"
-"
-"           insert mode array
-"
-"""""""""""""""""""""""""""""""""""""""
-inoremap <M-h> <Left>
-inoremap <M-j> <Down>
-inoremap <M-k> <Up>
-inoremap <M-l> <Right>
+"nnoremap <c-e> ,
+"vnoremap <c-e> ,
 """""""""""""""""""""""""""""""""""""""
 "
 "             gcc
@@ -321,9 +310,9 @@ set makeprg=gcc\ %:p\ -o\ %:p:r\ -g
 ":nmap ,t :!(cd %:p:h;ctags *)&
 
 map <C-k> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-map <C-i> :tab split<CR>:exec("cs find c ".expand("<cword>"))<CR>
+"map <C-/> :tab split<CR>:exec("cs find c ".expand("<cword>"))<CR>
 map <C-j> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-map <C-u> :vsp <CR>:exec("cs find c ".expand("<cword>"))<CR>
+"map <C-u> :vsp <CR>:exec("cs find c ".expand("<cword>"))<CR>
 
 :set tags=tags;
 """"""""""""""""""""""""""""""""""""
@@ -331,7 +320,18 @@ map <C-u> :vsp <CR>:exec("cs find c ".expand("<cword>"))<CR>
 "       colorscheme 
 "       
 """"""""""""""""""""""""""""""""""""
-colorscheme elise
+"colorscheme elise
 "set t_Co=256
-nnoremap <c-e> ,
-vnoremap <c-e> ,
+"""""""""""""""""""""""""""""""""""
+"
+"       set no-back-up
+"
+"""""""""""""""""""""""""""""""""""
+set nobackup
+"""""""""""""""""""""""""""""""""""
+"
+"       set line
+"
+"""""""""""""""""""""""""""""""""""
+"set cursorline
+"set cuc
