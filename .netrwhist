@@ -1,6 +1,4 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/media/workdata/workbench/arm2mips/lib'
-let g:netrw_dirhist_2='/home/armips/linux/include/asm'
-let g:netrw_dirhist_3='/media/workdata/workbench/arm2mips/lib/Analysis'
-let g:netrw_dirhist_4='/home/armips/.vim/.git'
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/var/mail'
+let g:netrw_dirhist_2='/home/armips/Mail'

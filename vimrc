@@ -277,8 +277,12 @@ set showcmd
 " lines from the bottom
 " set scrolloff=8
 
-" Allow the cursor to go in to "invalid" places
-" set virtualedit=all
+"""""""""""""""""""""""""""""""""""""""""""""""
+" 
+"Allow the cursor to go in to "invalid" places
+"
+"""""""""""""""""""""""""""""""""""""""""""""""
+"set virtualedit=all
 
 " get rid of the silly characters in window separators
 set fillchars=""
@@ -328,6 +332,12 @@ map <C-j> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 "
 """""""""""""""""""""""""""""""""""
 set nobackup
+"""""""""""""""""""""""""""""""""""
+"
+"      set no swap file exist
+"
+"""""""""""""""""""""""""""""""""""
+set noswapfile
 """""""""""""""""""""""""""""""""""
 "
 "       set line
