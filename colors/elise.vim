@@ -171,7 +171,7 @@ hi Tag ctermbg=bg ctermfg=DarkCyan guibg=bg guifg=DarkCyan gui=none
 hi Delimiter ctermbg=bg ctermfg=DarkCyan guibg=bg guifg=DarkCyan gui=none
 hi Debug ctermbg=bg ctermfg=DarkGray guibg=bg guifg=DarkGray gui=none
 
-hi MatchParen ctermbg=Green ctermfg=bg cterm=NONE guibg=Green guifg=bg gui=none
+hi MatchParen ctermbg=bg ctermfg=White cterm=bold guibg=Green guifg=bg gui=none
 hi Error ctermbg=Red ctermfg=White cterm=NONE guibg=bg guifg=#ff3333 gui=none
 hi Ignore ctermbg=bg ctermfg=bg cterm=NONE guibg=bg guifg=bg gui=none
 hi Todo ctermbg=Magenta ctermfg=bg cterm=NONE guibg=#ff66cc guifg=bg gui=none

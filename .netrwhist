@@ -1,7 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/home/armips/.vim'
-let g:netrw_dirhist_2='/media/workdata/workbench/arm2mips/runtime'
-let g:netrw_dirhist_3='/home/armips/armeabi_1'
-let g:netrw_dirhist_4='/home/armips/.vim'
-let g:netrw_dirhist_5='/home/armips/.vim/.git'
+let g:netrw_dirhist_cnt =0

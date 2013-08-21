@@ -10,6 +10,7 @@ syntax on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ia xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 "      Cope
@@ -34,8 +35,8 @@ set autoindent
 "         Vim grep
 "
 """"""""""""""""""""""""""""""
-let Grep_Skip_Dirs = '.git CVS SCCS .svn generated'
-set grepprg=/bin/grep\ -nH
+let Grep_Skip_Dirs = '.git CVS SCCS .svn generated .hg'
+set grepprg=/bin/grep\ -nHI
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -84,30 +85,12 @@ map ,w :call Browser ()<CR>
 
 """"""""""""""""""""""""""""""""""""""""
 "
-"             open file(gf)
-"
-""""""""""""""""""""""""""""""""""""""""
-" xxx keyword|vim -s search.vim -
-" only works when the line has no garbage
-function! OpenFile ()
-  let line = getline (".")
-  "let line = matchstr (line, "\b.*\b")
-  let line = split(line, ' \zs');
-  exec "tabnew ".line
-endfunction
-map ,r :call OpenFile ()<CR>
-
-""""""""""""""""""""""""""""""""""""""""
-"
 "             buffers
 "
 """"""""""""""""""""""""""""""""""""""""
 " in order to switch between buffers
 " with unsaved change 
 set hidden
-" I just use <Tab> to do buffernext, but need to make sure I am in Normal Mode
-" Taglist.vim use <Tab> in nomal mode for jumping among different filename in 
-" its own window, but I do not feel uncomfortable about this 
 noremap ,bn :bn<CR>
 noremap ,bd :bd<cr>
 autocmd! bufwritepost vimrc source ~/.vim/vimrc
@@ -120,7 +103,8 @@ nmap <F12> :set hls!<CR>
 "        tablist 
 "
 """""""""""""""""""""""""""""""""""""
-
+map pwd :pwd<cr>
+map ,e :tabnew 
 map <C-h> :tabp<cr>
 map <C-l> :tabn<cr>
 """"""""""""""""""""""""""""""""""""""""
@@ -150,7 +134,7 @@ set fo=croq
 "             taglist
 "
 """"""""""""""""""""""""""""""""""""""""
-map ,t :Tlist<CR>
+"map ,t :Tlist<CR>
 
 """"""""""""""""""""""""""""""""""""""""
 "
@@ -163,17 +147,11 @@ let g:load_doxygen_syntax=1
 
 """"""""""""""""""""""""""""""""""""""""
 "
-"             QT-doc
-"
-""""""""""""""""""""""""""""""""""""""""
-map ,k :!qref <cword><ENTER>
-
-""""""""""""""""""""""""""""""""""""""""
-"
 "             NERDtree
 "
 """"""""""""""""""""""""""""""""""""""""
 map ,n :NERDTreeToggle<CR>
+"map ,n :NERDTreeMirror<CR>
 
 """"""""""""""""""""""""""""""""""""""""
 "
@@ -185,7 +163,20 @@ map ,n :NERDTreeToggle<CR>
 map ,, :q!<CR>
 map <tab> :w!<CR>
 " jump to the previous position before exiting
-map pr '"
+"map pr '"
+"""""""""""""""""""""""""""""""""""""""""
+"
+"           match racket
+"
+"""""""""""""""""""""""""""""""""""""""""
+map t %
+
+"""""""""""""""""""""""""""""""""""""""""
+"
+"           match keyword
+"
+"""""""""""""""""""""""""""""""""""""""""
+nmap ff g*N
 
 """""""""""""""""""""""""""""""""""""""""""""
 "
@@ -194,7 +185,7 @@ map pr '"
 """"""""""""""""""""""""""""""""""""""""
 " I need a fake ~/.vimrc: runtime vimrc
 " http://www.derekwyatt.org/vim/the-vimrc-file/my-vimrc-file/
-map ,e :tabnew ~/.vim/vimrc<CR>
+map ,t :tabnew ~/.vim/vimrc<CR>
 " When vimrc is edited, reload it
 " copied from http://amix.dk/vim/vimrc.html
 
@@ -224,6 +215,7 @@ set wildmenu
 set expandtab
 set shiftwidth=2
 set tabstop=2
+  
 
 """"""""""""""""""""""""""""""""""""""""
 "
@@ -250,7 +242,8 @@ set incsearch
 "
 """"""""""""""""""""""""""""""""""""""""
 " Set the status line the way i like it
-set stl=%f\ %m\ %r\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ [%b][0x%B]
+set stl=%f\ %m\ %r\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ [%b][1x%B]\ %=gly
+"set tal=%T\ %X
 
 " tell VIM to always put a status line in, even if there is only one window
 " this means I can also see what is the filename I am in, finally!
@@ -261,7 +254,6 @@ set laststatus=2
 "             misc
 "
 """"""""""""""""""""""""""""""""""""""""
-
 " Do not know how to use autocmd yet, so the following line not working
 " autocmd FileType text setlocal textwidth=78
 set textwidth=78
@@ -276,8 +268,12 @@ set showcmd
 " lines from the bottom
 " set scrolloff=8
 
-" Allow the cursor to go in to "invalid" places
-" set virtualedit=all
+"""""""""""""""""""""""""""""""""""""""""""""""
+" 
+"Allow the cursor to go in to "invalid" places
+"
+"""""""""""""""""""""""""""""""""""""""""""""""
+"set virtualedit=all
 
 " get rid of the silly characters in window separators
 set fillchars=""
@@ -285,7 +281,9 @@ set fillchars=""
 " Highlight all instances of the current word under the cursor
 " nmap <silent> ^ :setl hls<CR>:let @/="<C-r><C-w>"<CR>
 " cd to the directory containing the file in the buffer
-nmap <silent> ,cd :lcd %:h<CR>
+"
+"nmap <silent> ,cd :lcd %:h<CR> "local cd for a window
+nmap <silent> ,cd :cd %:h<CR>
 nmap <silent> ,md :!mkdir -p %:p:h<CR>
 
 """"""""""""""""""""""""""""""""""""""""
@@ -311,15 +309,17 @@ set makeprg=gcc\ %:p\ -o\ %:p:r\ -g
 map <C-k> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 "map <C-/> :tab split<CR>:exec("cs find c ".expand("<cword>"))<CR>
 map <C-j> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-"map <C-u> :vsp <CR>:exec("cs find c ".expand("<cword>"))<CR>
+map <C-u> :vsp <CR>:exec("cs find c ".expand("<cword>"))<CR>
 
 :set tags=tags;
+
 """"""""""""""""""""""""""""""""""""
 "
 "       colorscheme 
 "       
 """"""""""""""""""""""""""""""""""""
 "colorscheme elise
+colorscheme default
 "set t_Co=256
 """""""""""""""""""""""""""""""""""
 "
@@ -329,7 +329,7 @@ map <C-j> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 set nobackup
 """""""""""""""""""""""""""""""""""
 "
-"       set line
+"       set line cus, cuc
 "
 """""""""""""""""""""""""""""""""""
 "set cursorline
@@ -340,3 +340,18 @@ set nobackup
 "
 """""""""""""""""""""""""""""""""""
 set noswapfile
+
+"""""""""""""""""""""""""""""""""""
+"
+"   match the ) when ( input
+"   can be used when code
+"
+"""""""""""""""""""""""""""""""""""
+function! Match_bracket ()
+  inoremap ( ()<left>
+  inoremap " ""<left>
+  inoremap { {}<left>
+  inoremap ' ''<left>
+  inoremap < <><left>
+endfunction
+map <F1> :call !Match_bracket ()<cr>
