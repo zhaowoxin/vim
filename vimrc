@@ -36,7 +36,7 @@ set autoindent
 "
 """"""""""""""""""""""""""""""
 let Grep_Skip_Dirs = '.git CVS SCCS .svn generated .hg'
-set grepprg=/bin/grep\ -nHI
+set grepprg=/bin/grep\ -nHI\ --color=always
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -55,7 +55,6 @@ map ,ss :setlocal spell!<cr>
 filetype plugin on
 filetype indent on
 
-
 """"""""""""""""""""""""""""""""""""""""
 "
 "             note-taking
@@ -67,21 +66,6 @@ filetype indent on
 autocmd FileType help set ma 
 autocmd FileType help set noreadonly
 autocmd BufWritePost ~/.vim/doc/* :helptags ~/.vim/doc
-
-
-""""""""""""""""""""""""""""""""""""""""
-"
-"             brower
-"
-""""""""""""""""""""""""""""""""""""""""
-" NOW Browser() only works for lines containing nothing but the link
-" refer to http://vim.wikia.com/wiki/VimTip306 
-function! Browser ()
-  let line = getline (".")
-  "  let line = matchstr (line, "\%(http://\|www\.\)[^ ,;\t]*")
-  exec "!firefox ".line
-endfunction
-map ,w :call Browser ()<CR>
 
 """"""""""""""""""""""""""""""""""""""""
 "
@@ -107,6 +91,7 @@ map pwd :pwd<cr>
 map ,e :tabnew 
 map <C-h> :tabp<cr>
 map <C-l> :tabn<cr>
+
 """"""""""""""""""""""""""""""""""""""""
 "
 "             formatting 
@@ -114,20 +99,6 @@ map <C-l> :tabn<cr>
 """"""""""""""""""""""""""""""""""""""""
 " this is for C comments, see *fo-table* to know what althese options mean
 set fo=croq
-
-""""""""""""""""""""""""""""""""""""""""
-"
-"             general
-"
-""""""""""""""""""""""""""""""""""""""""
-" why I use *,* to do mapping?
-" inspired by Derek, the reasons:
-" 1. <LEADER> is too long to type
-" 2. *,* is easier to reach than *\*
-" 3. in practice you nerver type in *,v*, but *, v*
-" Derek also do a nomap for *,*
-"   nnomap <c-e> ,
-" I do not do it, since I do not use *,* as a command a lot
 
 """"""""""""""""""""""""""""""""""""""""
 "
@@ -164,6 +135,7 @@ map ,, :q!<CR>
 map <tab> :w!<CR>
 " jump to the previous position before exiting
 "map pr '"
+
 """""""""""""""""""""""""""""""""""""""""
 "
 "           match racket
@@ -177,6 +149,13 @@ map t %
 "
 """""""""""""""""""""""""""""""""""""""""
 nmap ff g*N
+
+"""""""""""""""""""""""""""""""""""""""""
+"
+"           grep keyword
+"
+"""""""""""""""""""""""""""""""""""""""""
+nmap ,f :grep "<c-r>=expand("<cword>")<cr>" *<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""
 "
@@ -299,18 +278,17 @@ nmap <silent> ,md :!mkdir -p %:p:h<CR>
 "
 """""""""""""""""""""""""""""""""""""""
 set makeprg=gcc\ %:p\ -o\ %:p:r\ -g
+
 """"""""""""""""""""""""""""""""""""""
 "
 "            cscope && ctags
 "
 """""""""""""""""""""""""""""""""""""
 ":nmap ,t :!(cd %:p:h;ctags *)&
-
 map <C-k> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 "map <C-/> :tab split<CR>:exec("cs find c ".expand("<cword>"))<CR>
 map <C-j> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 map <C-u> :vsp <CR>:exec("cs find c ".expand("<cword>"))<CR>
-
 :set tags=tags;
 
 """"""""""""""""""""""""""""""""""""
@@ -321,12 +299,14 @@ map <C-u> :vsp <CR>:exec("cs find c ".expand("<cword>"))<CR>
 "colorscheme elise
 colorscheme default
 "set t_Co=256
+"
 """""""""""""""""""""""""""""""""""
 "
 "       set no-back-up
 "
 """""""""""""""""""""""""""""""""""
 set nobackup
+
 """""""""""""""""""""""""""""""""""
 "
 "       set line cus, cuc
@@ -334,6 +314,7 @@ set nobackup
 """""""""""""""""""""""""""""""""""
 "set cursorline
 "set cuc
+
 """""""""""""""""""""""""""""""""""
 "
 "        set no .swp file 
