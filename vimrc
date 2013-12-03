@@ -10,7 +10,6 @@ syntax on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ia xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 "      Cope
@@ -29,14 +28,6 @@ map ,cp :cp<cr>
 """"""""""""""""""""""""""""""""""""""""
 map ,pp :setlocal paste!<cr>
 set autoindent
-
-""""""""""""""""""""""""""""""
-"
-"         Vim grep
-"
-""""""""""""""""""""""""""""""
-let Grep_Skip_Dirs = '.git CVS SCCS .svn generated .hg'
-set grepprg=/bin/grep\ -nHI\ --color=always
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -79,8 +70,6 @@ noremap ,bn :bn<CR>
 noremap ,bd :bd<cr>
 autocmd! bufwritepost vimrc source ~/.vim/vimrc
 set backspace=indent,eol,start
-"F1: Toggle hlsearch (highlight search matches).
-nmap <F12> :set hls!<CR>
 
 """""""""""""""""""""""""""""""""""""
 "
@@ -99,13 +88,6 @@ map <C-l> :tabn<cr>
 """"""""""""""""""""""""""""""""""""""""
 " this is for C comments, see *fo-table* to know what althese options mean
 set fo=croq
-
-""""""""""""""""""""""""""""""""""""""""
-"
-"             taglist
-"
-""""""""""""""""""""""""""""""""""""""""
-"map ,t :Tlist<CR>
 
 """"""""""""""""""""""""""""""""""""""""
 "
@@ -133,8 +115,6 @@ map ,n :NERDTreeToggle<CR>
 " save some garbage editing, so I have a safer way now as below
 map ,, :q!<CR>
 map <tab> :w!<CR>
-" jump to the previous position before exiting
-"map pr '"
 
 """""""""""""""""""""""""""""""""""""""""
 "
@@ -155,7 +135,24 @@ nmap ff g*N
 "           grep keyword
 "
 """""""""""""""""""""""""""""""""""""""""
-nmap ,f :grep "<c-r>=expand("<cword>")<cr>" *<cr>
+let Grep_Skip_Dirs = '.git CVS SCCS .svn generated .hg'
+set grepprg=/bin/grep\ -nrHI\ 
+"nmap ,f :grep "<c-r>=expand("<cword>")<cr>" *<cr>
+function! MyGrep(grepstr)
+  execute "silent! grep " a:grepstr "*"
+  botright copen
+  exec "redraw!"
+endfunction
+
+function! GrepCurrentWord()
+    let currWord=expand("<cword>")    
+    if empty(currWord)
+      echohl "not current word"
+    endif
+    call MyGrep(currWord)
+endfunction
+
+nmap ,f :call GrepCurrentWord()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""
 "
@@ -183,7 +180,6 @@ imap jj <esc>
 "    wildmode/cmdline-completion
 "
 """"""""""""""""""""""""""""""""""""""""
-" use <C-D> with this to get a list
 set wildmenu
 
 """"""""""""""""""""""""""""""""""""""""
@@ -194,7 +190,6 @@ set wildmenu
 set expandtab
 set shiftwidth=2
 set tabstop=2
-  
 
 """"""""""""""""""""""""""""""""""""""""
 "
@@ -237,11 +232,7 @@ set laststatus=2
 " autocmd FileType text setlocal textwidth=78
 set textwidth=78
 
-" input abbrevation 
-iab frm from 
 " set number for doing diffs and folding
-" set nu
-" Show the current command in the lower right corner
 set showcmd
 " When the page starts to scroll, keep the cursor 8 lines from the top and 8
 " lines from the bottom
@@ -265,13 +256,6 @@ set fillchars=""
 nmap <silent> ,cd :cd %:h<CR>
 nmap <silent> ,md :!mkdir -p %:p:h<CR>
 
-""""""""""""""""""""""""""""""""""""""""
-"
-"             ,
-"
-""""""""""""""""""""""""""""""""""""""""
-"nnoremap <c-e> ,
-"vnoremap <c-e> ,
 """""""""""""""""""""""""""""""""""""""
 "
 "             gcc
@@ -300,12 +284,6 @@ map <C-u> :vsp <CR>:exec("cs find c ".expand("<cword>"))<CR>
 colorscheme default
 "set t_Co=256
 "
-"""""""""""""""""""""""""""""""""""
-"
-"       set no-back-up
-"
-"""""""""""""""""""""""""""""""""""
-set nobackup
 
 """""""""""""""""""""""""""""""""""
 "
@@ -321,18 +299,3 @@ set nobackup
 "
 """""""""""""""""""""""""""""""""""
 set noswapfile
-
-"""""""""""""""""""""""""""""""""""
-"
-"   match the ) when ( input
-"   can be used when code
-"
-"""""""""""""""""""""""""""""""""""
-function! Match_bracket ()
-  inoremap ( ()<left>
-  inoremap " ""<left>
-  inoremap { {}<left>
-  inoremap ' ''<left>
-  inoremap < <><left>
-endfunction
-map <F1> :call !Match_bracket ()<cr>
