@@ -299,3 +299,10 @@ colorscheme default
 "
 """""""""""""""""""""""""""""""""""
 set noswapfile
+
+"""""""""""""""""""""""""""""""
+"
+"  sudo save
+"
+"""""""""""""""""""""""""""""""
+nmap ,sw :silent! w !sudo tee %<cr>
