@@ -152,7 +152,8 @@ function! GrepCurrentWord()
     call MyGrep(currWord)
 endfunction
 
-nmap ,f :call GrepCurrentWord()<cr>
+nmap ,f :call GrepCurrentWord()<cr> <c-w>T :tabmove 0<cr>
+nmap ,t <c-w>gF
 
 """""""""""""""""""""""""""""""""""""""""""""
 "
@@ -161,7 +162,7 @@ nmap ,f :call GrepCurrentWord()<cr>
 """"""""""""""""""""""""""""""""""""""""
 " I need a fake ~/.vimrc: runtime vimrc
 " http://www.derekwyatt.org/vim/the-vimrc-file/my-vimrc-file/
-map ,t :tabnew ~/.vim/vimrc<CR>
+map ,v :tabnew ~/.vim/vimrc<CR>
 " When vimrc is edited, reload it
 " copied from http://amix.dk/vim/vimrc.html
 
