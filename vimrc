@@ -269,9 +269,17 @@ set makeprg=gcc\ %:p\ -o\ %:p:r\ -g
 "            cscope && ctags
 "
 """""""""""""""""""""""""""""""""""""
+function! s:LiteTabMove(idx)
+	let index = tabpagenr() + a:idx
+	if (index < 0)
+		return
+	endif
+    silent execute 'tabmove ' . index
+endfunction
+
 ":nmap ,t :!(cd %:p:h;ctags *)&
-map <C-k> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 "map <C-/> :tab split<CR>:exec("cs find c ".expand("<cword>"))<CR>
+map <C-k> :tab split<CR>:call <SID>LiteTabMove(-2)<CR>:exec("tag ".expand("<cword>"))<CR>
 map <C-j> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 map <C-u> :vsp <CR>:exec("cs find c ".expand("<cword>"))<CR>
 :set tags=tags;
