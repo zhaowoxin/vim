@@ -330,16 +330,17 @@ set clipboard=unnamed
 "
 """""""""""""""""""""""""""""""
 "1st version 
-nmap ,g :!open 'http://google.com/search?q=<c-r>=getreg('*')<cr>' <cr>
+"nmap ,g :!open 'http://google.com/search?q=<c-r>=getreg('*')<cr>' <cr>
 nmap ,d :!open 'http://baidu.com/s?wd=<c-r>=getreg('*')<cr>' <cr>
-"2nd version
-"function! GoogleIt()
-"    let cliptext=getreg('*')
-"    " '.' is string combine operator
-"    let command="!open -b com.apple.Safari \'http://google.com/search?q=" . cliptext . "\'"
-"    "echo command
-"    execute command
-"endfunction
-"
-"nmap ,g :call GoogleIt()<cr>
+"2nd version silent it
+function! GoogleIt()
+    let cliptext=getreg('*')
+    " '.' is string combine operator
+    let command="silent !open -b com.apple.Safari \'http://google.com/search?q=" . cliptext . "\'"
+    "echo command
+    execute command
+    execute "redraw!"
+endfunction
+
+nmap ,g :call GoogleIt()<cr>
 
