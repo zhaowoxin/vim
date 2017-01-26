@@ -24,7 +24,8 @@ endif
 " TabLine
 "hi TabLine ctermbg=white ctermfg=black cterm=NONE guibg=Gray20 guifg=#ffcc66 gui=none
 "hi TabLineFill ctermbg=white ctermfg=black cterm=NONE guibg=Gray20 guifg=#ffcc66 gui=none
-hi TabLineSel ctermbg=none ctermfg=red cterm=bold guibg=#ffcc66 guifg=Gray20 gui=bold
+hi TabLineSel ctermbg=none ctermfg=red cterm=bold 
+"guibg=#ffcc66 guifg=Gray20 gui=bold
 
 " Load the syntax highlighting defaults, if it's enabled.
 let colors_name = "default"

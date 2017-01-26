@@ -13,6 +13,8 @@ snippet main
 snippet inc
 	#include <${1:stdio}.h>${2}
 # #include "..."
+snippet incl
+	#include "${1:stdio}.h"${2}
 snippet Inc
 	#include "${1:`Filename("$1.h")`}"${2}
 # #ifndef ... #define ... #endif

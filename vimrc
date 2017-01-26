@@ -136,7 +136,7 @@ nmap ff g*N
 "
 """""""""""""""""""""""""""""""""""""""""
 let Grep_Skip_Dirs = '.git CVS SCCS .svn generated .hg'
-set grepprg=/bin/grep\ -nrHI\ 
+set grepprg=/usr/bin/grep\ -nrHI\
 "nmap ,f :grep "<c-r>=expand("<cword>")<cr>" *<cr>
 function! MyGrep(grepstr)
   execute "silent! grep " a:grepstr "*"
@@ -189,8 +189,8 @@ set wildmenu
 "
 """"""""""""""""""""""""""""""""""""""""
 set expandtab
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 
 """"""""""""""""""""""""""""""""""""""""
 "
@@ -209,7 +209,7 @@ set dictionary-=/usr/share/dict/words dictionary+=/usr/share/dict/words
 " ic also has effect on dictionary settings
 set ic 
 set hlsearch
-set incsearch
+"set incsearch
 
 """"""""""""""""""""""""""""""""""""""""
 "
@@ -315,3 +315,31 @@ set noswapfile
 "
 """""""""""""""""""""""""""""""
 nmap ,sw :silent! w !sudo tee %<cr>
+
+"""""""""""""""""""""""""""""""""""
+"
+"       set clipborad unnamed
+"       should have +clipboard
+"
+"""""""""""""""""""""""""""""""""""
+set clipboard=unnamed 
+
+"""""""""""""""""""""""""""""""
+"
+"       google clipborad
+"
+"""""""""""""""""""""""""""""""
+"1st version 
+nmap ,g :!open 'http://google.com/search?q=<c-r>=getreg('*')<cr>' <cr>
+nmap ,d :!open 'http://baidu.com/s?wd=<c-r>=getreg('*')<cr>' <cr>
+"2nd version
+"function! GoogleIt()
+"    let cliptext=getreg('*')
+"    " '.' is string combine operator
+"    let command="!open -b com.apple.Safari \'http://google.com/search?q=" . cliptext . "\'"
+"    "echo command
+"    execute command
+"endfunction
+"
+"nmap ,g :call GoogleIt()<cr>
+
