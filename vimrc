@@ -217,7 +217,7 @@ set hlsearch
 "
 """"""""""""""""""""""""""""""""""""""""
 " Set the status line the way i like it
-set stl=%f\ %m\ %r\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ [%b][1x%B]\ %=gly
+set stl=%f\ %m\ %r\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ [%b][1x%B]\ %=nianian
 "set tal=%T\ %X
 
 " tell VIM to always put a status line in, even if there is only one window
@@ -336,11 +336,18 @@ nmap ,d :!open 'http://baidu.com/s?wd=<c-r>=getreg('*')<cr>' <cr>
 function! GoogleIt()
     let cliptext=getreg('*')
     " '.' is string combine operator
-    let command="silent !open -b com.apple.Safari \'http://google.com/search?q=" . cliptext . "\'"
-    "echo command
+    let command="silent !open -b com.google.Chrome http://google.com/search?q=".cliptext
     execute command
     execute "redraw!"
 endfunction
 
 nmap ,g :call GoogleIt()<cr>
 
+"""""""""""""""""""""""""""""""
+"
+"       汉语乱码问题
+"
+"""""""""""""""""""""""""""""""
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8
